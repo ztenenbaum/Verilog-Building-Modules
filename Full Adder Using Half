@@ -1,0 +1,40 @@
+module HalfAdder (
+input A,
+input B,
+output Sum,
+output Carry
+);
+assign Sum = A ^ B;
+assign Carry = A & B;
+
+endmodule
+
+
+module FullAdderUsingHalf (
+input A,
+input B,
+input C,
+output Sum,
+output Carry
+);
+
+wire sum_1;
+wire carry_1;
+wire carry_2;
+
+HalfAdder h1 (
+.A(A),
+.B(B),
+.Sum(sum_1),
+.Carry(carry_1)
+);
+
+HalfAdder h2 (
+.A(sum_1),
+.B(C),
+.Sum(Sum),
+.Carry(carry_2)
+);
+
+assign Carry = carry_1 | carry_2;
+endmodule
